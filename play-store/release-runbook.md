@@ -15,7 +15,7 @@ Expected bundle:
 app/build/outputs/bundle/release/app-release.aab
 ```
 
-Alternatively, run the `Android Closed Testing Release` workflow in GitHub Actions. It asks for `versionCode` and `versionName`, runs tests, builds a signed `.aab`, stores it as the `tabuada-release-aab` artifact for 14 days, and uploads it to the Play Console closed testing `alpha` track.
+Alternatively, run the `Android Closed Testing Release` workflow in GitHub Actions. Manual runs ask for `versionCode` and `versionName`. A pushed tag like `v1.0.0` runs automatically, uses `1.0.0` as `versionName`, uses the GitHub run number as `versionCode`, stores the `tabuada-release-aab` artifact for 14 days, and uploads it to the Play Console closed testing `alpha` track.
 
 ## 2. Store listing
 

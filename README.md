@@ -31,7 +31,7 @@ Android app em Kotlin/Compose para treinar multiplicações de 1x1 até 10x10 co
 O projeto inclui GitHub Actions para CI e upload para a Play Console:
 
 - `Android CI`: roda testes em push e pull request.
-- `Android Closed Testing Release`: gera o `.aab` assinado e envia para a track `alpha`.
+- `Android Closed Testing Release`: gera o `.aab` assinado e envia para a track `alpha`; pode ser acionado manualmente ou por tag `v*`.
 - `Play Store Listing`: envia metadados, ícone, feature graphic e screenshots.
 
 Secrets necessários:
@@ -43,3 +43,5 @@ Secrets necessários:
 - `PLAY_SERVICE_ACCOUNT_JSON`
 
 Veja [play-store/google-play-api-setup.md](play-store/google-play-api-setup.md) para configurar a conta de serviço da Play Console.
+
+Para release automático após configurar os secrets, crie uma tag como `v1.0.0` e faça push. O workflow usa o nome da tag como `versionName` e o número do run como `versionCode`.

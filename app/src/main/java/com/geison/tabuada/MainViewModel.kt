@@ -20,15 +20,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val state = repository.state
     val currentFact = mutableCurrentFact.asStateFlow()
 
+    init {
+        repository.recordShown(mutableCurrentFact.value.id)
+    }
+
     fun answerCurrent(rawAnswer: String): AnswerResult? {
         val result = repository.answer(mutableCurrentFact.value.id, rawAnswer) ?: return null
-        mutableCurrentFact.value = repository.nextPracticeFact()
+        advanceToNextFact()
         NotificationScheduler.schedulePractice(getApplication())
         return result
     }
 
     fun skipCurrent() {
-        mutableCurrentFact.value = repository.nextPracticeFact()
+        advanceToNextFact()
     }
 
     fun updateNotificationWindow(startHour: Int, endHour: Int) {
@@ -70,6 +74,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun rescheduleNow() {
         NotificationScheduler.schedulePractice(getApplication())
+    }
+
+    private fun advanceToNextFact() {
+        val nextFact = repository.nextPracticeFact()
+        mutableCurrentFact.value = nextFact
+        repository.recordShown(nextFact.id)
     }
 
     companion object {

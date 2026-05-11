@@ -1,6 +1,9 @@
 name: Android Closed Testing Release
 
 on:
+  push:
+    tags:
+      - "v*"
   workflow_dispatch:
     inputs:
       versionCode:
@@ -48,11 +51,25 @@ jobs:
         env:
           RELEASE_KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
 
+      - name: Resolve release version
+        id: release_version
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "version_code=$INPUT_VERSION_CODE" >> "$GITHUB_OUTPUT"
+            echo "version_name=$INPUT_VERSION_NAME" >> "$GITHUB_OUTPUT"
+          else
+            echo "version_code=$GITHUB_RUN_NUMBER" >> "$GITHUB_OUTPUT"
+            echo "version_name=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          INPUT_VERSION_CODE: ${{ inputs.versionCode }}
+          INPUT_VERSION_NAME: ${{ inputs.versionName }}
+
       - name: Test and build signed bundle
         run: ./gradlew test bundleRelease --no-daemon
         env:
-          VERSION_CODE: ${{ inputs.versionCode }}
-          VERSION_NAME: ${{ inputs.versionName }}
+          VERSION_CODE: ${{ steps.release_version.outputs.version_code }}
+          VERSION_NAME: ${{ steps.release_version.outputs.version_name }}
           RELEASE_STORE_FILE: ${{ runner.temp }}/release.keystore
           RELEASE_STORE_PASSWORD: ${{ secrets.RELEASE_STORE_PASSWORD }}
           RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
@@ -74,5 +91,5 @@ jobs:
           releaseFiles: app/build/outputs/bundle/release/app-release.aab
           track: alpha
           status: completed
-          releaseName: ${{ inputs.versionName }} (${{ inputs.versionCode }})
+          releaseName: ${{ steps.release_version.outputs.version_name }} (${{ steps.release_version.outputs.version_code }})
           whatsNewDirectory: play-store/whatsnew
