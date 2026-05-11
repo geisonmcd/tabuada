@@ -1,6 +1,6 @@
 # Play Store Release Runbook
 
-Use this when preparing a Play Console release for Tabuada do 10.
+Use this when preparing a Play Console release for Multiplication Table Trainer.
 
 ## 1. Build locally
 
@@ -19,7 +19,8 @@ Alternatively, run the `Android Closed Testing Release` workflow in GitHub Actio
 
 ## 2. Store listing
 
-- App name: `Tabuada do 10`
+- App name (pt-BR): `Tabuada Trainer`
+- App name (en-US): `Multiplication Table Trainer`
 - Short description: `play-store/short-description.txt`
 - Full description: `play-store/full-description.txt`
 - App icon: `play-store/graphics/app-icon-512.png`

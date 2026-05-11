@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tabuada do 10</string>
+    <string name="app_name">Multiplication Table Trainer</string>
     <string name="notification_title_question">Tabuada</string>
     <string name="notification_question_text">Quanto é %1$d x %2$d?</string>
     <string name="notification_answer_hint">Digite a resposta</string>
