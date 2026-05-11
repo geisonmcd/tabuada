@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Tabuada do 10</string>
+    <string name="notification_title_question">Tabuada</string>
+    <string name="notification_question_text">Quanto é %1$d x %2$d?</string>
+    <string name="notification_answer_hint">Digite a resposta</string>
+    <string name="notification_action_answer">Responder</string>
+    <string name="notification_action_more">Ver mais vezes</string>
+    <string name="notification_channel_practice">Treino de tabuada</string>
+    <string name="notification_channel_practice_description">Perguntas de multiplicação programadas durante o dia.</string>
+    <string name="notification_result_correct_title">Certo</string>
+    <string name="notification_result_wrong_title">Errado</string>
+    <string name="notification_result_invalid_title">Resposta inválida</string>
+    <string name="notification_result_invalid_text">Digite apenas o número da resposta.</string>
+    <string name="notification_result_correct_text">%1$d x %2$d vai aparecer menos por enquanto.</string>
+    <string name="notification_result_wrong_text">%1$d x %2$d = %3$d. Essa conta volta para treino.</string>
+</resources>

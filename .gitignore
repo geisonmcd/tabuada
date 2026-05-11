@@ -1,0 +1,16 @@
+/.gradle
+/.gradle-local
+/local.properties
+/build
+/app/build
+*.iml
+.DS_Store
+/emulator-*.png
+/view.xml
+/home_view.xml
+/edit_view.xml
+/current_view.xml
+/.playwright-mcp
+/keystore.properties
+*.jks
+*.keystore

@@ -1,0 +1,63 @@
+name: Play Store Listing
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: play-store-listing
+  cancel-in-progress: false
+
+jobs:
+  upload-listing:
+    name: Upload store listing metadata
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+
+      - name: Install fastlane
+        run: gem install fastlane --no-document
+
+      - name: Prepare Play Store metadata
+        run: |
+          test -n "$PLAY_SERVICE_ACCOUNT_JSON"
+          printf '%s\n' "Tabuada do 10" > "$RUNNER_TEMP/metadata/en-US/title.txt"
+          mkdir -p "$RUNNER_TEMP/metadata/en-US"
+          cp play-store/short-description.txt "$RUNNER_TEMP/metadata/en-US/short_description.txt"
+          cp play-store/full-description.txt "$RUNNER_TEMP/metadata/en-US/full_description.txt"
+          if [ -f play-store/graphics/app-icon-512.png ]; then
+            mkdir -p "$RUNNER_TEMP/metadata/en-US/images"
+            cp play-store/graphics/app-icon-512.png "$RUNNER_TEMP/metadata/en-US/images/icon.png"
+          fi
+          if [ -f play-store/graphics/feature-graphic-1024x500.png ]; then
+            mkdir -p "$RUNNER_TEMP/metadata/en-US/images"
+            cp play-store/graphics/feature-graphic-1024x500.png "$RUNNER_TEMP/metadata/en-US/images/featureGraphic.png"
+          fi
+          if [ -n "$(find play-store/screenshots -maxdepth 1 -name '*.png' -print -quit 2>/dev/null)" ]; then
+            mkdir -p "$RUNNER_TEMP/metadata/en-US/images/phoneScreenshots"
+            cp play-store/screenshots/*.png "$RUNNER_TEMP/metadata/en-US/images/phoneScreenshots/"
+          fi
+          printf '%s' "$PLAY_SERVICE_ACCOUNT_JSON" > "$RUNNER_TEMP/play-service-account.json"
+        env:
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+
+      - name: Upload listing to Play Console
+        run: |
+          fastlane supply \
+            --json_key "$RUNNER_TEMP/play-service-account.json" \
+            --package_name com.geison.tabuada \
+            --metadata_path "$RUNNER_TEMP/metadata" \
+            --track alpha \
+            --version_code 10 \
+            --skip_upload_apk true \
+            --skip_upload_aab true \
+            --skip_upload_changelogs true

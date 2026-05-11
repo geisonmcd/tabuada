@@ -1,0 +1,18 @@
+Tabuada do 10 ajuda você a memorizar multiplicações de 1x1 até 10x10 com prática curta, repetição espaçada e notificações locais.
+
+O app pergunta contas de multiplicação durante o dia. Você digita a resposta, sem dicas. Quando acerta, aquela conta descansa e volta depois de alguns dias seguindo uma sequência inspirada em Fibonacci. Quando erra, ela aparece novamente com mais prioridade.
+
+Principais recursos:
+
+- Treino livre dentro do app
+- Perguntas por notificação com resposta digitada
+- Frequência de notificações configurável
+- Botão para ver mais perguntas no dia
+- Repetição espaçada em 2, 3, 5, 8, 13 dias
+- Revisão intensiva para contas erradas duas vezes no dia
+- Contas redundantes, como 7x8 e 8x7, acompanhadas separadamente
+- Estatísticas por multiplicação: exibidas, acertos, erros e sequência atual
+- Contas marcadas como aprendidas após um limite configurável de acertos seguidos
+- Dados salvos localmente no aparelho
+
+O app não tem conta, anúncios, analytics ou backend. As notificações são locais e aproximadas, respeitando a janela configurada no Android.

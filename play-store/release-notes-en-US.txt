@@ -1,0 +1,6 @@
+First release of Tabuada do 10.
+
+- Practice multiplication facts from 1x1 to 10x10
+- Answer scheduled questions from notifications
+- Review missed facts more often
+- Mark facts as learned after a configurable streak
